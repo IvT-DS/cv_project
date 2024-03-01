@@ -16,8 +16,12 @@ from torchvision import transforms as T
 from Models.semantic_segmentation_model import UNet
 
 # Specify the paths, where a model and weights are located
-model_path = "Models"
-weights_path = "Models/unet_weights.pt"
+# model_path = "Models"
+# weights_path = "Models/unet_weights.pt"
+
+# Save weight for each layer
+# for name, layer in model.named_children():
+#     torch.save(layer.state_dict(), f"weights/{name}_weights.pth")
 
 
 # Use decorator to cache a model using
@@ -27,7 +31,11 @@ def load_model():
     # Choose device
     device = torch.device("cpu")
     # Set weights
-    model.load_state_dict(torch.load(weights_path, map_location=device))
+    for name, layer in model.named_children():
+        layer_weights = torch.load(f"Models/{name}_weights.pth", map_location=device)
+        layer.load_state_dict(layer_weights)
+
+    # model.load_state_dict(torch.load(weights_path, map_location=device))
 
     # Set the model to evaluation mode
     model.eval()
