@@ -200,7 +200,7 @@ try:
             st.error(f"Unable to load model. Check the specified path: {weights_path}")
             st.error(ex)
 
-        if st.button(f"Dedect ships"):
+        if st.button(f"Determine forest"):
             # The start of the countdown of the model's operation
             start_time = time.time()
             # # Start prediction of a model
