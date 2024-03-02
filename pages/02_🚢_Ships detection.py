@@ -91,6 +91,15 @@ with col2:
 # Separator
 st.write("---")
 
+try:
+    # model = YOLO(weights_path)
+    model = load_model()
+
+except Exception as ex:
+    st.error(
+        f"Unable to load model. Check the specified path: {weights_path}"
+    )
+    st.error(ex)
 
 button_style = """
     <style>
@@ -112,25 +121,17 @@ try:
             type=["jpg", "png", "jpeg"],
             accept_multiple_files=True,
         )
+
         # Creating two columns on the main page
         col1, col2 = st.columns(2)
+
         # Load images
         if uploaded_files:
             with col1:
                 for uploaded_file in uploaded_files:
                     image = Image.open(uploaded_file)
                     st.image(image, caption="Uploaded image", use_column_width=True)
-
-            try:
-                # model = YOLO(weights_path)
-                model = load_model()
-
-            except Exception as ex:
-                st.error(
-                    f"Unable to load model. Check the specified path: {weights_path}"
-                )
-                st.error(ex)
-
+            
             # Clean images if the button was pressed
             if st.button(f"Dedect ships"):
 
@@ -156,7 +157,7 @@ try:
                         # Show an image via streamlit
                         st.image(
                             result_plotted,
-                            caption="Detected image",
+                            caption="Processed image",
                             use_column_width=True,
                         )
                 st.info(
@@ -166,27 +167,21 @@ try:
     else:
         url = st.text_input("Enter the URL of image...")
         # Creating two columns on the main page
+
         col1, col2 = st.columns(2)
         # Adding image to the first column if image is uploaded
+
         with col1:
             if url:
                 response = requests.get(url)
                 if response.status_code == 200:
                     image = Image.open(BytesIO(response.content))
                     st.image(image, caption="Uploaded image", use_column_width=True)
-
                 else:
                     st.error(
                         "An error occurred while receiving the image. Make sure that the correct link is entered."
                     )
-        try:
-            # model = YOLO(weights_path)
-            model = load_model()
-
-        except Exception as ex:
-            st.error(f"Unable to load model. Check the specified path: {weights_path}")
-            st.error(ex)
-
+    
         if st.button(f"Dedect ships"):
             # The start of the countdown of the model's operation
             start_time = time.time()
@@ -204,7 +199,7 @@ try:
             with col2:
                 # Show an image via streamlit
                 st.image(
-                    result_plotted, caption="Detected image", use_column_width=True
+                    result_plotted, caption="Processed image", use_column_width=True
                 )
             st.info(f"The working time of the model is: {elapsed_time:.4f} sec.")
 
