@@ -15,10 +15,12 @@
 6. All pages must support the user uploading multiple files at once.
 7. The object detection page must support uploading the file via a direct link.
 8. All pages should have a section with information about models, quality and the learning process.
+9. *Additional task - to apply the Unet model for semantic segmentation of aerospace images.
 
 ## Used models 🤖
 1. YOLOv8m for 1st task.
 2. Autoencoder with 6 layers for 2nd task.
+3. U-net*.
 
 ## Used instruments 🧰
 1. Python.
@@ -29,3 +31,4 @@
 ## Used datasets for model teaching 🔗
 1. [Ships/Vessels in Aerial Images](https://www.kaggle.com/datasets/siddharthkumarsah/ships-in-aerial-images)
 2. [shabby-pages](https://drive.google.com/file/d/1LsHSn8dM8BTZ7EoWU6-n1I1BvR0p5tIx/view)
+3. [Forest Aerial Images for Segmentation](https://www.kaggle.com/datasets/quadeer15sh/augmented-forest-segmentation)
